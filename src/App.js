@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom';
+import FetchSavedAdvises from './components/fetch-saved';
+import FetchOneAdvise from './components/random';
+import FetchAllAdvises from './components/all';
+import NotFound from './components/404';
+import Navbar from './components/navbar';
+import { useIndexDB } from './db/indexedDB';
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Navbar />
+      <Routes>
+        <Route exact path="/saved" element={<FetchSavedAdvises />} />
+        <Route exact path="/random" element={<FetchOneAdvise />} />
+        <Route exact path="/" element={<FetchOneAdvise />} />
+        <Route exact path="/all" element={<FetchAllAdvises />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  )
 }
 
-export default App;
