@@ -2,11 +2,12 @@
 import Dexie from "dexie";
 
 
-var db = new Dexie('mydb');
+export const db = new Dexie('mydb');
 db.version(1).stores({ advises: 'id' });
 
 // localStorage.setItem('count', parseInt(0))
 unique.id = parseInt(localStorage.getItem('count'))
+
 function unique() {
     localStorage.setItem('count', unique.id)
     return unique.id++

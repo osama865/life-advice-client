@@ -8,6 +8,16 @@ import Navbar from './components/navbar';
 import { useIndexDB } from './db/indexedDB';
 
 
+
+const {  find, insert} = useIndexDB()
+insert({
+  text: "hello",
+  author: "osama",
+  note: "hey",
+  _id: "kdkfdskf",
+  language: "en",
+  id : 200
+})
 export default function App() {
   return (
     <>
