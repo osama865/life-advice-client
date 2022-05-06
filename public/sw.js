@@ -120,3 +120,16 @@ function hasSameHash(firstUrl, secondUrl) {
     return /\?hash=(.*)/.exec(firstUrl)[1] === /\?hash=(.*)/.exec(secondUrl)[1];
   }
 }
+
+// NOTIFICATION
+self.addEventListener('push', event => {
+  console.log('New notification', event)
+  const data = event.data.json()
+  const options = {
+    body: data.body,
+    name: "osama"
+  }
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+})
