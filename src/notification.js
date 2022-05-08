@@ -15,19 +15,15 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray
 }
 
-function uuid() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-  }
-  
-console.log(uuid());
+const prod = 'https://life-advise-server.herokuapp.com'
+const dev = 'http://localhost:3001'
+
+const env = () => (process.env.NODE_ENV === prod ? prod : dev)
 function sendSubscription(subscription) {
   console.log('hshshhs', subscription);
-  return fetch('http://localhost:3001/subscribe', {
+  return fetch(`https://life-advise-server.herokuapp.com/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
-    id : uuid(),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -36,22 +32,22 @@ function sendSubscription(subscription) {
 
 export function subscribeUser() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(function(registration) {
+    navigator.serviceWorker.ready.then(function (registration) {
       if (!registration.pushManager) {
         console.log('Push manager unavailable.')
         return
       }
 
-      registration.pushManager.getSubscription().then(function(existedSubscription) {
+      registration.pushManager.getSubscription().then(function (existedSubscription) {
         if (existedSubscription === null) {
           console.log('No subscription detected, make a request.')
           registration.pushManager.subscribe({
             applicationServerKey: convertedVapidKey,
             userVisibleOnly: true,
-          }).then(function(newSubscription) {
+          }).then(function (newSubscription) {
             console.log('New subscription added.')
             sendSubscription(newSubscription)
-          }).catch(function(e) {
+          }).catch(function (e) {
             if (Notification.permission !== 'granted') {
               console.log('Permission was not granted.')
             } else {
@@ -64,7 +60,7 @@ export function subscribeUser() {
         }
       })
     })
-      .catch(function(e) {
+      .catch(function (e) {
         console.error('An error ocurred during Service Worker registration.', e)
       })
   }
