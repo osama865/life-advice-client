@@ -7,6 +7,7 @@ import NotFound from './components/404';
 import Navbar from './components/navbar';
 import { useIndexDB } from './db/indexedDB';
 import "./components/testing/index"
+import Proof from './components/proof';
 
 
 const { find, insert } = useIndexDB()
@@ -44,6 +45,7 @@ export default function App() {
   }, [])
   return (
     <>
+
       <Navbar />
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
@@ -51,6 +53,7 @@ export default function App() {
         <Route exact path="/" element={<FetchOneAdvise />} />
         <Route exact path="/all" element={<FetchAllAdvises />} />
         <Route path="*" element={<NotFound />} />
+        <Route exact path="/proof" element={<Proof />} ></Route>
       </Routes>
     </>
   )
