@@ -15,7 +15,7 @@ export default function FetchOneAdvise() {
   return (
     <>
 
-      <Advise advise={ad} id={ad._id} color={2} />
+      <Advise advise={ad} id={ad._id} color={4} />
       {skip !== undefined && (
         <div className="center">
           <button className="btn favorite">

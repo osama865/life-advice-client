@@ -12,6 +12,6 @@ export default function Try() {
   }, [])
 
   return (
-    <Advise advise={data} color={2} id={data._id} >{data._id}</Advise>
+    <Advise advise={data} color={5} id={data._id} >{data._id}</Advise>
   )
 }
