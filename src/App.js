@@ -8,6 +8,8 @@ import Navbar from './components/navbar';
 import { useIndexDB } from './db/indexedDB';
 import "./components/testing/index"
 import Proof from './components/proof';
+import "./APIs"
+import Try from './components/try';
 
 
 const { find, insert } = useIndexDB()
@@ -49,6 +51,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
+        <Route exact path="/data" element={<Try />} />
         <Route exact path="/random" element={<FetchOneAdvise />} />
         <Route exact path="/" element={<FetchOneAdvise />} />
         <Route exact path="/all" element={<FetchAllAdvises />} />
