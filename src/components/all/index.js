@@ -1,8 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
+import { fetchMultiple } from '../../APIs'
+import Advise from '../Advise'
+import infinteScroll from './customHook'
+
 
 export default function FetchAllAdvises() {
+  const [advises, setAdvises] = useState([])
+  const { skip , last} = infinteScroll(setAdvises)
+
+  useEffect(() => {
+    fetchMultiple(0).then(res => {
+      setAdvises((prev) => {
+        return [...new Set([...prev, ...res])];
+      });
+    }, err => {
+      console.error(err);
+    })
+  }, [])
+
+
+  /**
+   * first useEffect(()=>{
+    setAdvises((prev) => {
+      return [...new Set([...prev, ...result])];
+    });
+  }, [result])
+   */
+
   return (
-    <div>FetchAllAdvises</div>
+    <>
+      {advises?.map((ad, i) => {
+        if (i + 1 === advises.length) {
+          return (
+            <div key={i} ref={last}>
+              <Advise advise={ad} id={ad._id} key={i} color={2} />
+            </div>
+          );
+        } else {
+          return <Advise advise={ad} id={ad._id} key={i} color={3} />;
+        }
+      })}
+    </>
   )
 }
 /**

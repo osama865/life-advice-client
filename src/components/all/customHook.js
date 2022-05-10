@@ -1,8 +1,9 @@
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { fetchMultiple } from "../../APIs";
 
-export default function customHook() {
-  const [result, setResult] = useState([]);
-  let skip = 0;
+export default function InfinteScroll(setAdvises) {
+  const [result, setResult] = useState([])
+  let skip = parseInt(localStorage.getItem('skip'))
   const observer = useRef();
   const last = useCallback(
     (node) => {
@@ -11,17 +12,21 @@ export default function customHook() {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           skip = skip + 10;
-          Meteor.call("fetchByScroll", skip, (err, res) => {
-            setResult(res);
-            // good i got'em
-          });
+          localStorage.setItem('skip', skip)
+          fetchMultiple(skip).then(res => {
+            setAdvises((prev) => {
+              return [...new Set([...prev, ...res])];
+            });
+            console.log('intersected and here the result', res);
+          }, err => {
+            console.error(err);
+          })
         }
       });
       if (node) observer.current.observe(node);
-    },
+    }, []
     // whenever these deps changes , run the callback
-    [skip]
   );
-
-  return { last, result };
+  
+  return { last ,skip};
 }

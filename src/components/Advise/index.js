@@ -1,8 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+// add advise to local db and 
+// make sure when random / multiple fetch to notify the user
+// if the fetched advise is saved or not
+/*
+
+const findIds = async () => {
+    try {
+        let res = await db.advises.toArray()
+        res.map((advise)=>{
+            console.log(advise._id);
+        })
+        console.log(res, 'hoooo');
+        return res
+    } catch {
+        
+    }
+}
+*/
 export default function Advise({ advise, id, color }) {
+  const [editedNote, setEditedNote] = useState("");
 
-  let isSaved = false
+  const handleChange = (e) => {
+    e.preventDefault();
+    setEditedNote(e.target.value);
+  };
+  let isSaved = true
   return (
     <div className="container">
       <blockquote className={`blockquote color${color}`}>
@@ -12,12 +35,13 @@ export default function Advise({ advise, id, color }) {
           <div className="options">
             <textarea
               dir={advise.language === "ar" ? "rtl" : "ltr"}
-              value=''
+              value={editedNote}
               placeholder={
                 advise.language === "ar"
                   ? "احفظها واضف افكارك ?"
                   : "Save it with note?"
               }
+              onChange={handleChange}
               cols="20"
               rows="5"
             />
