@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useIndexDB } from '../../db/indexedDB';
 
 // add advise to local db and 
 // make sure when random / multiple fetch to notify the user
@@ -20,12 +21,38 @@ const findIds = async () => {
 */
 export default function Advise({ advise, id, color }) {
   const [editedNote, setEditedNote] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
+  const { insert, find } = useIndexDB()
+  // add advise to indexedDB
 
   const handleChange = (e) => {
     e.preventDefault();
     setEditedNote(e.target.value);
   };
-  let isSaved = true
+
+  const handleSave = () => {
+    setIsSaved(true)
+    findMatched()
+    insert(advise).then((result) => {
+      console.log(result);
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  const findMatched = () => {
+    find().then((res) => {
+      res.map((advise) => {
+        if (id === advise._id) {
+          setIsSaved(true)
+        }
+      })
+    })
+  }
+
+  useEffect(() => {
+    findMatched();
+  }, []);
   return (
     <div className="container">
       <blockquote className={`blockquote color${color}`}>
@@ -45,7 +72,7 @@ export default function Advise({ advise, id, color }) {
               cols="20"
               rows="5"
             />
-            <button className="btn favorite saved">
+            <button className="btn favorite saved" onClick={handleSave}>
               <i className="far fa-heart"></i> add to favorite
             </button>
           </div>

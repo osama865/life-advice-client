@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { useIndexDB } from "../../db/indexedDB";
+import SavedAdvises from "../saved-advise";
 
-export default function FetchSavedAdvises() {
-  return (
-    <div>FetchSavedAdvises</div>
-  )
+function coloring() {
+  let colorNumber;
+  colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
+  if (colorNumber > 4 || colorNumber <= 0) {
+    colorNumber = 3;
+  }
+  return colorNumber;
 }
 
+export default function FetchSavedAdvises() {
+  const [advises, setAdvises] = useState([]);
+  const { find } = useIndexDB();
+
+  useEffect(() => {
+    find().then((res) => {
+      setAdvises(res)
+    })
+  }, []);
+
+  return (
+    <div className="container1" >
+      {advises?.map((advise, i) => {
+        return <SavedAdvises advise={advise} _id={advise._id} key={i} color={coloring()} />;
+      })}
+    </div>
+  );
+}
 
 /**
  * import React, { useEffect, useState } from "react";

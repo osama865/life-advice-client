@@ -30,10 +30,10 @@ export async function fetchMultiple(skip = 0) {
     return res;
 }
 
-fetchMultiple()
-
-async function fetchData(route, req) {
-    let url = `http://localhost:3002/${route}`
+async function fetchData(route = '', req) {
+    let production = "http://life-advise-server.herokuapp.com/"
+    let local = 'http://localhost:3002/'
+    let url = `${production}/${route}`
     let response = await fetch(url, req)
     return response.json()
 }
