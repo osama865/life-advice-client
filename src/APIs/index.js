@@ -31,7 +31,7 @@ export async function fetchMultiple(skip = 0) {
 }
 
 async function fetchData(route = '', req) {
-    let production = "http://life-advise-server.herokuapp.com/"
+    let production = "https://life-advise-server.herokuapp.com/"
     let local = 'http://localhost:3002/'
     let url = `${production}/${route}`
     let response = await fetch(url, req)
