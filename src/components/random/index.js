@@ -1,28 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { random } from '../../APIs'
 import Advise from '../Advise'
 
+function coloring() {
+  let colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
+  if (colorNumber > 4 || colorNumber <= 0) {
+    colorNumber = 3;
+  }
+  return colorNumber;
+}
 
 export default function FetchOneAdvise() {
-  let ad = {
-    text: "hello",
-    author: "osama",
-    note: "hey",
-    _id: "kdkfdskf",
-    language : "en"
+  const [advice, setAdvice] = useState({})
+
+  const fetchMore = (e) => {
+    e.preventDefault()
+    random().then(res => {
+      setAdvice(res)
+    })
   }
 
-  let skip = 10
+  useEffect(() => {
+    random().then(res => {
+      setAdvice(res)
+    })
+  }, [])
+
   return (
     <>
-
-      <Advise advise={ad} id={ad._id} color={4} />
-      {skip !== undefined && (
+      <div className="container1">
+        <Advise advise={advice} id={advice._id} color={coloring()} />
         <div className="center">
-          <button className="btn favorite">
+          <button className="btn favorite" onClick={fetchMore}>
             <i className="fas fa-comment-alt"></i> Get More Advices
           </button>
         </div>
-      )}
+      </div>
     </>
   )
 }

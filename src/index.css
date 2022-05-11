@@ -197,18 +197,27 @@ textarea {
 
 .container1 {
   transition: all 200ms;
-  margin-top: 5.5em;
+  margin-top: 5em;
 }
 
-.container {
-  padding-top: 7em
-}
-
-@media only screen and (min-width: 400px) {
-  .container {
-    padding-top:7em ;
+@media only screen and (max-width: 480px) {
+  .container1 {
+    padding-top:2em ;
   }
 }
+
+@media only screen and (max-width: 300px) {
+  .container1 {
+    padding-top:3.5em ;
+  }
+}
+
+@media only screen and (max-width: 260px) {
+  .container1 {
+    padding-top:5.5em ;
+  }
+}
+
 .not-found {
   margin-top: 18em;
 }

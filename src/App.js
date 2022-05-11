@@ -6,7 +6,6 @@ import FetchAllAdvises from './components/all';
 import NotFound from './components/404';
 import Navbar from './components/navbar';
 import Proof from './components/proof';
-import Try from './components/try';
 
 export default function App() {
   return (
@@ -14,7 +13,6 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
-        <Route exact path="/data" element={<Try />} />
         <Route exact path="/random" element={<FetchOneAdvise />} />
         <Route exact path="/" element={<FetchOneAdvise />} />
         <Route exact path="/all" element={<FetchAllAdvises />} />

@@ -17,7 +17,7 @@ export default function FetchSavedAdvises() {
 
   useEffect(() => {
     find().then((res) => {
-      setAdvises(res)
+      setAdvises(res.reverse())
     })
   }, []);
 

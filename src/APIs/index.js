@@ -34,6 +34,7 @@ async function fetchData(route, req) {
     let production = "https://life-advise-server.herokuapp.com"
     let local = 'http://localhost:3002'
     let url = `${production}/${route}`
+    console.log(url);
     let response = await fetch(url, req)
     return response.json()
 }

@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fetchMultiple } from '../../APIs'
 import Advise from '../Advise'
 import infinteScroll from './customHook'
 
 function coloring() {
-  let colorNumber;
-  colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
+  let colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
   if (colorNumber > 4 || colorNumber <= 0) {
     colorNumber = 3;
   }
@@ -14,7 +13,7 @@ function coloring() {
 
 export default function FetchAllAdvises() {
   const [advises, setAdvises] = useState([])
-  const { skip, last } = infinteScroll(setAdvises)
+  const { last } = infinteScroll(setAdvises)
 
   useEffect(() => {
     fetchMultiple(0).then(res => {
@@ -28,6 +27,7 @@ export default function FetchAllAdvises() {
 
   return (
     <>
+    <div className="container1" >
       {advises?.map((ad, i) => {
         if (i + 1 === advises.length) {
           return (
@@ -39,6 +39,7 @@ export default function FetchAllAdvises() {
           return <Advise advise={ad} id={ad._id} key={i} color={coloring()} />;
         }
       })}
+      </div>
     </>
   )
 }
