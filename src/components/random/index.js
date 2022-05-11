@@ -11,7 +11,7 @@ function coloring() {
 }
 
 export default function FetchOneAdvise() {
-  const [advice, setAdvice] = useState({})
+  const [advice, setAdvice] = useState({ _id: "61d553b2f7e27f9a58952f20", text: "Most of what matters in our lives takes place in our absence.", author: "Salman Rushdie", date: "2021-11-30T08:02:42.027Z", index: 0, language: "en" })
 
   const fetchMore = (e) => {
     e.preventDefault()

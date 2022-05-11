@@ -2,19 +2,13 @@
 import Dexie from "dexie";
 
 export const db = new Dexie('mydb');
-db.version(1).stores({ advises: '_id' });
+db.version(2).stores({ advises: '++id' });
 
 // localStorage.setItem('count', parseInt(0))
-unique.id = parseInt(localStorage.getItem('count'))
-
-function unique() {
-    localStorage.setItem('count', unique.id)
-    return unique.id++
-}
 
 const insert = (doc) => {
     // delete(doc._id)
-    return db.advises.put({ id: unique(), ...doc }).then(id => {
+    return db.advises.put(doc).then(id => {
     })
 }
 
