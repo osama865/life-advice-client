@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react'
-import { useIndexDB } from '../../db/indexedDB';
+import { UseIndexedDB } from '../../db/indexedDB';
 
 export default function SavedAdvises({ advise, _id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isRemoved, setIsRemoved] = useState(false);
   const note = useRef();
-  const { remove , update } = useIndexDB();
+  const { remove , update } = UseIndexedDB();
 
   const updateNote = () => {
     advise.note = editedNote

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useIndexDB } from "../../db/indexedDB";
+import { UseIndexedDB } from "../../db/indexedDB";
 import SavedAdvises from "../saved-advise";
 
 function coloring() {
@@ -13,13 +13,13 @@ function coloring() {
 
 export default function FetchSavedAdvises() {
   const [advises, setAdvises] = useState([]);
-  const { find } = useIndexDB();
+  const { find } = UseIndexedDB();
 
   useEffect(() => {
     find().then((res) => {
       setAdvises(res.reverse())
     })
-  }, []);
+  },[]);
 
   return (
     <div className="container1" >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useIndexDB } from '../../db/indexedDB';
+import { UseIndexedDB } from '../../db/indexedDB';
 
 // add advise to local db and 
 // make sure when random / multiple fetch to notify the user
@@ -22,7 +22,7 @@ const findIds = async () => {
 export default function Advise({ advise, id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
-  const { insert, find } = useIndexDB()
+  const { insert, find } = UseIndexedDB()
   // add advise to indexedDB
 
   const handleChange = (e) => {
