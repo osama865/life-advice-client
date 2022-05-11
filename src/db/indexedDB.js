@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function UseIndexedDB() {
     const db = new Dexie('mydb');
-    db.version(2).stores({ advises: '++id' });
+    db.version(1).stores({ advises: '++id' });
     // localStorage.setItem('count', parseInt(0))
 
     const insert = (doc) => {
