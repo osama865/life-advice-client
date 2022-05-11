@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function UseIndexedDB() {
     const db = new Dexie('mydb');
-    db.version(1).stores({ advises: '++id' });
+    db.version(1).stores({ advises: '_id' });
     // localStorage.setItem('count', parseInt(0))
 
     const insert = (doc) => {
@@ -37,8 +37,13 @@ export default function UseIndexedDB() {
         db.advises.update(id, newValu)
     }
 
-    const remove = (selector) => {
-        db.advises.delete(selector)
+    const remove = async (selector) => {
+        try {
+            return await db.advises.delete(selector)
+        } catch (err) {
+            console.log(err);
+        }
+        
     }
     return { insert, remove, find, findOne, update }
 }

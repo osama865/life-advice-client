@@ -9,7 +9,7 @@ export default function SavedAdvises({ advise, _id, color }) {
 
   const updateNote = () => {
     advise.note = editedNote
-    update(advise.id , advise);
+    update(advise._id , advise);
   };
 
   const clearNote = (e) => {
@@ -18,7 +18,7 @@ export default function SavedAdvises({ advise, _id, color }) {
   };
 
   const removeAd = () => {
-    remove(advise.id);
+    remove(_id);
     setIsRemoved(true);
   };
 

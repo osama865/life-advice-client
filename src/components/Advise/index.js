@@ -22,7 +22,7 @@ const findIds = async () => {
 export default function Advise({ advise, id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
-  const { insert, find } = UseIndexedDB()
+  const { insert, find , update} = UseIndexedDB()
   // add advise to indexedDB
 
   const handleChange = (e) => {
@@ -33,6 +33,7 @@ export default function Advise({ advise, id, color }) {
   const handleSave = () => {
     setIsSaved(true)
     findMatched()
+    advise.note = editedNote
     insert(advise).then((result) => {
       console.log(result);
     }).catch((err) => {
@@ -53,6 +54,7 @@ export default function Advise({ advise, id, color }) {
   useEffect(() => {
     findMatched();
   }, []);
+
   return (
     <div className="container">
       <blockquote className={`blockquote color${color}`}>
