@@ -16,12 +16,12 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 const prod = 'https://life-advise-server.herokuapp.com'
-const dev = 'http://localhost:3001'
+const dev = 'http://localhost:3002'
 
 const env = () => (process.env.NODE_ENV === prod ? prod : dev)
 function sendSubscription(subscription) {
   console.log('hshshhs', subscription);
-  return fetch(`https://life-advise-server.herokuapp.com/subscribe`, {
+  return fetch(`${dev}/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
@@ -30,6 +30,36 @@ function sendSubscription(subscription) {
   })
 }
 
+/**
+ function subscribeUser() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function(reg) {
+
+      reg.pushManager.subscribe({
+        userVisibleOnly: true
+      }).then(function(sub) {
+        console.log('Endpoint URL: ', sub.endpoint);
+      }).catch(function(e) {
+        if (Notification.permission === 'denied') {
+          console.warn('Permission for notifications was denied');
+        } else {
+          console.error('Unable to subscribe to push', e);
+        }
+      });
+    })
+  }
+}
+
+It's best practice to call the subscribeUser() function in response to a user action signalling 
+they would like to subscribe to push messages from our app.
+
+In the above example we call the subscribe method on the pushManager and log the subscription object to the console.
+
+Notice we are passing a flag named userVisibleOnly to the subscribe method. 
+By setting this to true, the browser ensures that every incoming message has a matching (and visible) notification.
+
+
+ */
 export function subscribeUser() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(function (registration) {

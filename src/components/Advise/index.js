@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { UseIndexedDB } from '../../db/indexedDB';
 
 // add advise to local db and 
@@ -22,8 +22,11 @@ const findIds = async () => {
 export default function Advise({ advise, id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
-  const { insert, find , update} = UseIndexedDB()
+
+  const textfield = useRef();
+  const { insert, find } = UseIndexedDB()
   // add advise to indexedDB
+  //console.log(id, "sssssssss");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -31,21 +34,25 @@ export default function Advise({ advise, id, color }) {
   };
 
   const handleSave = () => {
-    setIsSaved(true)
-    findMatched()
+    // e.preventDefault()
     advise.note = editedNote
     insert(advise).then((result) => {
       console.log(result);
     }).catch((err) => {
       console.error(err);
     });
+    setIsSaved(true)
   }
 
   const findMatched = () => {
+    // setIsSaved(false)
     find().then((res) => {
-      res.map((advise) => {
-        if (id === advise._id) {
+      console.log(res, "saved ids", "sssssssssssssss", advise._id);
+      res.map((val) => {
+        if (val._id === advise._id) {
           setIsSaved(true)
+        } else {
+          // setIsSaved(false)
         }
       })
     })
@@ -54,6 +61,11 @@ export default function Advise({ advise, id, color }) {
   useEffect(() => {
     findMatched();
   }, []);
+
+  useEffect(() => {
+    setIsSaved(false);
+    setEditedNote("")
+  }, [advise._id]);
 
   return (
     <div className="container">
@@ -67,10 +79,11 @@ export default function Advise({ advise, id, color }) {
               value={editedNote}
               placeholder={
                 advise.language === "ar"
-                  ? "احفظها واضف افكارك ?"
-                  : "Save it with note?"
+                  ? "احفظها واضف افكارك"
+                  : "Save it with note"
               }
               onChange={handleChange}
+              ref={textfield}
               cols="20"
               rows="5"
             />

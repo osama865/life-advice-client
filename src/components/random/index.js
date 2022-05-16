@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { random } from '../../APIs'
+import { random, coloring, getParameters } from '../../APIs'
 import Advise from '../Advise'
 
-function coloring() {
-  let colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
-  if (colorNumber > 4 || colorNumber <= 0) {
-    colorNumber = 3;
-  }
-  return colorNumber;
-}
 
 export default function FetchOneAdvise() {
-  const [advice, setAdvice] = useState({ _id: "61d553b2f7e27f9a58952f20", text: "Most of what matters in our lives takes place in our absence.", author: "Salman Rushdie", date: "2021-11-30T08:02:42.027Z", index: 0, language: "en" })
+  const url = window.location.search
+  const [advice, setAdvice] = useState(getParameters(url))
+  console.log(advice, 'oooooooooooooooo');
 
-  const fetchMore = (e) => {
-    e.preventDefault()
+  const fetchMore = () => {
     random().then(res => {
+      console.log(res, "raaaaaaaandooooom");
       setAdvice(res)
     })
   }
 
   useEffect(() => {
-    random().then(res => {
-      setAdvice(res)
-    })
+    if (advice._id === null) {
+      random().then(res => {
+        console.log(res, "raaaaaaaandooooom");
+        setAdvice(res)
+      })
+    }
   }, [])
 
   return (

@@ -13,9 +13,13 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
-        <Route exact path="/random" element={<FetchOneAdvise />} />
+        <Route path="/random" element={<FetchOneAdvise />} />
         <Route exact path="/" element={<FetchOneAdvise />} />
         <Route exact path="/all" element={<FetchAllAdvises />} />
+
+
+
+        
         <Route path="*" element={<NotFound />} />
         <Route exact path="/proof" element={<Proof />} ></Route>
       </Routes>
