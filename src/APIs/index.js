@@ -36,7 +36,7 @@ export async function fetchMultiple(skip = 0) {
 async function fetchData(route, req) {
     let production = "https://life-advise-server.herokuapp.com"
     let local = 'http://localhost:3002'
-    let url = `${local}/${route}`
+    let url = `${production}/${route}`
     console.log(url);
     let response = await fetch(url, req)
     return response.clone().json()
@@ -85,8 +85,8 @@ channel.addEventListener('message', async event => {
 
     } else if (advice.type === 'show') {
         console.log(advice);
-    } else {
-        console.log(advice);
+    } else if (advice.type === 'close') {
+        console.log("advice " , advice , " closed");
     }
 });
 

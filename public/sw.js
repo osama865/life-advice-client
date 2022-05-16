@@ -222,7 +222,7 @@ self.addEventListener('notificationclick', function (e) {
     let dev = 'http://localhost:3000'
     let prod = 'https://life-advise.netlify.app'
     // add params to url 
-    let url = `${dev}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
+    let url = `${prod}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
     // open url
     clients.openWindow(url)
     notification.close();
