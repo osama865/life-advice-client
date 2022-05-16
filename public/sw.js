@@ -217,8 +217,10 @@ self.addEventListener('notificationclick', function (e) {
     channel.close()
     notification.close();
   } else if (action === "show") {
-    const notif = self.registration.getNotifications(notification.tag)
+    /**
+     * const notif = self.registration.getNotifications(notification.tag)
     console.log("dddddddddddd", notif);
+     */
     let dev = 'http://localhost:3000'
     let prod = 'https://life-advise.netlify.app'
     // add params to url 
