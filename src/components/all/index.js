@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchMultiple } from '../../APIs'
 import Advise from '../Advise'
+import Offline from '../offline';
 import infinteScroll from './customHook'
 
 function coloring() {
@@ -14,6 +15,16 @@ function coloring() {
 export default function FetchAllAdvises() {
   const [advises, setAdvises] = useState([])
   const { last } = infinteScroll(setAdvises)
+  const [online, setOnline] = useState(navigator.onLine)
+
+  window.addEventListener('offline', (ev) => {
+    setOnline(false)
+  })
+
+  window.addEventListener('online', (ev) => {
+    setOnline(true)
+  })
+
 
   useEffect(() => {
     fetchMultiple(0).then(res => {
@@ -27,19 +38,24 @@ export default function FetchAllAdvises() {
 
   return (
     <>
-    <div className="container1" >
-      {advises?.map((ad, i) => {
-        if (i + 1 === advises.length) {
-          return (
-            <div key={i} ref={last}>
-              <Advise advise={ad} id={ad._id} key={i} color={coloring()} />
-            </div>
-          );
-        } else {
-          return <Advise advise={ad} id={ad._id} key={i} color={coloring()} />;
-        }
-      })}
-      </div>
+      {
+        online && <div className="container1" >
+          {advises?.map((ad, i) => {
+            if (i + 1 === advises.length) {
+              return (
+                <div key={i} ref={last}>
+                  <Advise advise={ad} id={ad._id} key={i} color={coloring()} />
+                </div>
+              );
+            } else {
+              return <Advise advise={ad} id={ad._id} key={i} color={coloring()} />;
+            }
+          })}
+        </div>
+      }
+      {
+        !online && (<Offline />)
+      }
     </>
   )
 }

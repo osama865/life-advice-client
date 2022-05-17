@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { random, coloring, getParameters } from '../../APIs'
 import Advise from '../Advise'
+import Offline from '../offline'
 
 
 export default function FetchOneAdvise() {
   const url = window.location.search
   const [advice, setAdvice] = useState(getParameters(url))
+  const [online, setOnline] = useState(navigator.onLine)
   console.log(advice, 'oooooooooooooooo');
 
   const fetchMore = () => {
@@ -15,6 +17,15 @@ export default function FetchOneAdvise() {
     })
   }
 
+  window.addEventListener('offline', (ev) => {
+    setOnline(false)
+  })
+
+  window.addEventListener('online', (ev) => {
+    setOnline(true)
+  })
+
+  console.log(online, 'llllllllllllllll');
   useEffect(() => {
     if (advice._id === null) {
       random().then(res => {
@@ -26,14 +37,19 @@ export default function FetchOneAdvise() {
 
   return (
     <>
-      <div className="container1">
-        <Advise advise={advice} id={advice._id} color={coloring()} />
-        <div className="center">
-          <button className="btn favorite" onClick={fetchMore}>
-            <i className="fas fa-comment-alt"></i> Get More Advices
-          </button>
-        </div>
-      </div>
+      {
+        online && (<div className="container1">
+          <Advise advise={advice} id={advice._id} color={coloring()} />
+          <div className="center">
+            <button className="btn favorite" onClick={fetchMore}>
+              <i className="fas fa-comment-alt"></i> Get More Advices
+            </button>
+          </div>
+        </div>)
+      }
+      {
+        !online && (<Offline />)
+      }
     </>
   )
 }

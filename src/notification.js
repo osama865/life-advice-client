@@ -20,8 +20,9 @@ const dev = 'http://localhost:3002'
 
 const env = () => (process.env.NODE_ENV === prod ? prod : dev)
 function sendSubscription(subscription) {
+  console.log(env(), "envirniment");
   console.log('hshshhs', subscription);
-  return fetch(`${dev}/subscribe`, {
+  return fetch(`${env()}/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
