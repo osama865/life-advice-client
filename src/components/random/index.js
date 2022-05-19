@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { random, coloring, getParameters } from '../../APIs'
 import Advise from '../Advise'
+import Notifications from '../notification'
 import Offline from '../offline'
 
 
@@ -11,10 +12,14 @@ export default function FetchOneAdvise() {
   console.log(advice, 'oooooooooooooooo');
 
   const fetchMore = () => {
-    random().then(res => {
-      console.log(res, "raaaaaaaandooooom");
-      setAdvice(res)
-    })
+    if (navigator.onLine) {
+      random().then(res => {
+        console.log(res, "raaaaaaaandooooom");
+        setAdvice(res)
+      })
+    } else {
+      setOnline(false)
+    }
   }
 
   window.addEventListener('offline', (ev) => {
@@ -25,7 +30,6 @@ export default function FetchOneAdvise() {
     setOnline(true)
   })
 
-  console.log(online, 'llllllllllllllll');
   useEffect(() => {
     if (advice._id === null) {
       random().then(res => {
@@ -38,15 +42,19 @@ export default function FetchOneAdvise() {
   return (
     <>
       {
-        online && (<div className="container1">
-          <Advise advise={advice} id={advice._id} color={coloring()} />
-          <div className="center">
-            <button className="btn favorite" onClick={fetchMore}>
-              <i className="fas fa-comment-alt"></i> Get More Advices
-            </button>
+        online && (<>
+          <div className="container1">
+            <Advise advise={advice} id={advice._id} color={coloring()} />
+            <div className="center">
+              <button className="btn favorite" onClick={fetchMore}>
+                <i className="fas fa-comment-alt"></i> Get More Advices
+              </button>
+            </div>
           </div>
-        </div>)
-      }
+          <Notifications />
+        </>
+        )}
+
       {
         !online && (<Offline />)
       }
