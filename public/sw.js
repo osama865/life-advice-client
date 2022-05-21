@@ -195,10 +195,15 @@ https://javascript-conference.com/wp-content/uploads/2018/11/Advanced_Progressiv
 addEventListener('click', function (e) {
 })
 
+const prod = 'https://life-advise.netlify.app'
+const dev = 'http://localhost:3000'
+
+
 self.addEventListener('notificationclick', function (e) {
   var notification = e.notification;
   console.log("you click me and this is my event object: ", notification.tag);
   var action = e.action;
+  console.log(e, "this is an event object");
   const channel = new BroadcastChannel('advice');
 
   if (action === 'close') {
@@ -227,10 +232,9 @@ self.addEventListener('notificationclick', function (e) {
      * const notif = self.registration.getNotifications(notification.tag)
     console.log("dddddddddddd", notif);
      */
-    let dev = 'http://localhost:3000'
-    let prod = 'https://life-advise.netlify.app'
+
     // add params to url 
-    let url = `${dev}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
+    let url = `${prod}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
     // open url
     clients.openWindow(url)
     notification.close();

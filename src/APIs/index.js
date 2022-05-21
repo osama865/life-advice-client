@@ -2,6 +2,12 @@ import UseIndexedDB from "../db/indexedDB";
 import { subscribeUser } from "../notification";
 
 const { insert } = UseIndexedDB()
+
+const prod = 'https://life-advise-server.herokuapp.com'
+const dev = 'http://localhost:3002'
+
+const env = () => (process.env.NODE_ENV === prod ? prod : dev)
+
 export async function random() {
     let res = {};
     let route = "random"
@@ -81,9 +87,7 @@ const unsubscribe = () => {
 
 
 async function fetchData(route, req) {
-    let production = "https://life-advise-server.herokuapp.com"
-    let local = 'http://localhost:3002'
-    let url = `${local}/${route}`
+    let url = `${env()}/${route}`
     console.log(url);
     let response = await fetch(url, req)
     return response.clone().json()
