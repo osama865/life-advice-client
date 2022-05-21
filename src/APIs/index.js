@@ -1,4 +1,5 @@
 import UseIndexedDB from "../db/indexedDB";
+import { subscribeUser } from "../notification";
 
 const { insert } = UseIndexedDB()
 export async function random() {
@@ -32,6 +33,52 @@ export async function fetchMultiple(skip = 0) {
     res = fetchData(route, req)
     return res;
 }
+
+async function unsubscribeNotifications(data = {}) {
+    let route = `unsubscribe`
+    let req = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data)
+    }
+    let res = fetchData(route, req)
+    return res;
+}
+
+const unsubscribe = () => {
+    // first delete subscription data from database
+    // second notify the user he/she will no longer recieve notifications
+    // unsubscribe from push manger
+    navigator.serviceWorker.ready.then(function (registration) {
+        registration.pushManager.getSubscription().then(subscription => {
+            console.log("subscription", subscription);
+            // first remove subscription from the database
+            unsubscribeNotifications(subscription).then((result) => {
+                console.log(' the subscription data has been removed from the server. ', result);
+
+                // the subscription data has been removed from the server, now tell the user that.
+                subscription.unsubscribe().then(function (successful) {
+                    // You've Successfully Unsubscribed
+                    console.log("unsubscribing done");
+                }).catch(function (e) {
+                    // Unsubscribing failed
+                    console.error(e);
+                })
+
+
+            }).catch((err) => {
+                console.error(err, 'happend when removing subscription data from server');
+            });
+
+
+
+        })
+    })
+}
+
 
 async function fetchData(route, req) {
     let production = "https://life-advise-server.herokuapp.com"
@@ -86,7 +133,13 @@ channel.addEventListener('message', async event => {
     } else if (advice.type === 'show') {
         console.log(advice);
     } else if (advice.type === 'close') {
-        console.log("advice " , advice , " closed");
+        console.log("advice ", advice, " closed");
+    } else if (advice.type === 'unsubscribe') {
+        console.log('sshhhhhhhhhhhhhhhhhhhe WTF');
+        unsubscribe()
+    } else if (advice.type === 'subscribe') {
+        console.log('sshhhhhhhhhhhhhhhhhhhe WTF');
+        subscribeUser()
     }
 });
 

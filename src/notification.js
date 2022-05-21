@@ -63,6 +63,7 @@ By setting this to true, the browser ensures that every incoming message has a m
  */
 export function subscribeUser() {
   if ('serviceWorker' in navigator) {
+    Notification.requestPermission()
     navigator.serviceWorker.ready.then(function (registration) {
       if (!registration.pushManager) {
         console.log('Push manager unavailable.')
