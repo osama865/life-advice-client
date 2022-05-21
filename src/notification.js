@@ -18,11 +18,10 @@ function urlBase64ToUint8Array(base64String) {
 const prod = 'https://life-advise-server.herokuapp.com'
 const dev = 'http://localhost:3002'
 
-const env = () => (process.env.NODE_ENV === prod ? prod : dev)
 function sendSubscription(subscription) {
-  console.log(env(), "envirniment");
+  console.log(prod, "envirniment");
   console.log('hshshhs', subscription);
-  return fetch(`${env()}/subscribe`, {
+  return fetch(`${prod}/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
