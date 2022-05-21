@@ -87,7 +87,7 @@ const unsubscribe = () => {
 
 
 async function fetchData(route, req) {
-    let url = `${env()}/${route}`
+    let url = `${prod}/${route}`
     console.log(url);
     let response = await fetch(url, req)
     return response.clone().json()
