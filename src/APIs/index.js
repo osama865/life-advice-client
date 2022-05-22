@@ -12,44 +12,23 @@ export async function random() {
     let route = "random"
     let req = {
         method: 'GET',
-        mode : "cors",
+        mode: "cors",
         headers: {
-            'Access-Control-Allow-Origin':'*',
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         }
     }
-    res = fetchData(route, req)
+    res = fetchData(route, {})
     return res;
 }
 
-localStorage.setItem('skip', 0)
-export async function fetchMultiple(skip = 0) {
-    let res = {};
-    let limit = 10
-    // let skip = localStorage.getItem('skip')
-    let route = `multiple?skip=${skip}&limit=${limit}`
 
-    let req = {
-        mode: "no-cors",
-        method: 'GET',
-        mode :"cors",
-        headers: {
-            'Access-Control-Allow-Origin':'*',
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-    }
-    res = fetchData(route, req)
-    return res;
-}
 
 async function unsubscribeNotifications(data = {}) {
     let route = `unsubscribe`
     let req = {
-        mode: "no-cors",
         method: 'POST',
-        mode :"cors",
+        mode: "cors",
         headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -91,11 +70,30 @@ const unsubscribe = () => {
     })
 }
 
+localStorage.setItem('skip', 0)
+export async function fetchMultiple(skip = 0) {
+    let res = {};
+    let limit = 10
+    // let skip = localStorage.getItem('skip')
+    let route = `multiple?skip=${skip}&limit=${limit}`
+
+    let req = {
+        method: 'GET',
+        mode: "cors",
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    }
+    res = fetchData(route, {})
+    return res;
+}
+
 
 async function fetchData(route, req) {
-    let url = `${prod}/${route}`
+    let url = `${dev}/${route}`
     console.log(url);
-    let response = await fetch(url, req)
+    let response = await fetch(url)
     return response.clone().json()
 }
 
