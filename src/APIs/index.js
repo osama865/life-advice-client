@@ -91,7 +91,7 @@ export async function fetchMultiple(skip = 0) {
 
 
 async function fetchData(route, req) {
-    let url = `${dev}/${route}`
+    let url = `${prod}/${route}`
     console.log(url);
     let response = await fetch(url)
     return response.clone().json()
