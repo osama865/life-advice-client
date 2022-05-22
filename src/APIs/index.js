@@ -12,9 +12,9 @@ export async function random() {
     let route = "random"
     let req = {
         method: 'GET',
-        mode : "cors",
+        mode: "cors",
         headers: {
-            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         }
@@ -31,9 +31,10 @@ export async function fetchMultiple(skip = 0) {
     let route = `multiple?skip=${skip}&limit=${limit}`
 
     let req = {
+        mode: "cors",
         method: 'GET',
         headers: {
-            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -45,6 +46,7 @@ export async function fetchMultiple(skip = 0) {
 async function unsubscribeNotifications(data = {}) {
     let route = `unsubscribe`
     let req = {
+        mode: "cors",
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
