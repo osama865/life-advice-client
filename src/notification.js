@@ -22,7 +22,6 @@ function sendSubscription(subscription) {
   console.log(prod, "envirniment");
   console.log('hshshhs', subscription);
   return fetch(`${prod}/subscribe`, {
-    mode : "cors",
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
