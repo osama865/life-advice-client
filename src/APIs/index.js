@@ -12,7 +12,7 @@ export async function random() {
     let route = "random"
     let req = {
         method: 'GET',
-        mode: "cors",
+        mode: "no-cors",
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ async function unsubscribeNotifications(data = {}) {
         mode: "cors",
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(data)

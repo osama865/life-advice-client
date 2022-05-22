@@ -48,7 +48,9 @@ self.addEventListener("fetch", (event) => {
           return cached;
         }
       }
-      return fetch(requestToFetch)
+      return fetch(requestToFetch,{
+        mode : "no-cors"
+      })
         .then((response) => {
           const clonedResponse = response.clone();
           const contentType = clonedResponse.headers.get("content-type");
