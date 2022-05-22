@@ -12,7 +12,12 @@ export async function random() {
     let route = "random"
     let req = {
         method: 'GET',
-        mode: "no-cors",
+        mode : "cors",
+        headers: {
+            'Access-Control-Allow-Origin':'*',
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        }
     }
     res = fetchData(route, req)
     return res;
@@ -28,7 +33,12 @@ export async function fetchMultiple(skip = 0) {
     let req = {
         mode: "no-cors",
         method: 'GET',
-
+        mode :"cors",
+        headers: {
+            'Access-Control-Allow-Origin':'*',
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
     }
     res = fetchData(route, req)
     return res;
@@ -39,7 +49,11 @@ async function unsubscribeNotifications(data = {}) {
     let req = {
         mode: "no-cors",
         method: 'POST',
-
+        mode :"cors",
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
         body: JSON.stringify(data)
     }
     let res = fetchData(route, req)
