@@ -6,14 +6,15 @@ const { insert } = UseIndexedDB()
 const prod = 'https://life-advise-server.herokuapp.com'
 const dev = 'http://localhost:3002'
 
-const env = () => (process.env.NODE_ENV === prod ? prod : dev)
 
 export async function random() {
     let res = {};
     let route = "random"
     let req = {
         method: 'GET',
+        mode : "cors",
         headers: {
+            'Access-Control-Allow-Origin':'*',
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         }
@@ -31,7 +32,9 @@ export async function fetchMultiple(skip = 0) {
 
     let req = {
         method: 'GET',
+        mode :"cors",
         headers: {
+            'Access-Control-Allow-Origin':'*',
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -44,6 +47,7 @@ async function unsubscribeNotifications(data = {}) {
     let route = `unsubscribe`
     let req = {
         method: 'POST',
+        mode :"cors",
         headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
