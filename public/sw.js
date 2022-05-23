@@ -228,13 +228,7 @@ self.addEventListener('notificationclick', function (e) {
     channel.close()
     notification.close();
   } else if (action === "show") {
-    /**
-     * const notif = self.registration.getNotifications(notification.tag)
-    console.log("dddddddddddd", notif);
-     */
-
-    // add params to url 
-    let url = `${prod}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
+    let url = `${dev}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
     console.log(url, "fuck");
     // open url
     clients.openWindow(url)

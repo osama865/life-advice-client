@@ -28,7 +28,6 @@ async function unsubscribeNotifications(data = {}) {
     let route = `unsubscribe`
     let req = {
         method: 'POST',
-        mode: "cors",
         headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -91,9 +90,9 @@ export async function fetchMultiple(skip = 0) {
 
 
 async function fetchData(route, req) {
-    let url = `${prod}/${route}`
+    let url = `${dev}/${route}`
     console.log(url);
-    let response = await fetch(url)
+    let response = await fetch(url,req)
     return response.clone().json()
 }
 

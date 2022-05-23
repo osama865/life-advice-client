@@ -21,7 +21,7 @@ const dev = 'http://localhost:3002'
 function sendSubscription(subscription) {
   console.log(prod, "envirniment");
   console.log('hshshhs', subscription);
-  return fetch(`${prod}/subscribe`, {
+  return fetch(`${dev}/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
