@@ -26,7 +26,7 @@ export default function SavedAdvises({ advise, _id, color }) {
     <>
       <div hidden={isRemoved}>
         <blockquote className={`blockquote color${color}`}>
-          {advise.text}
+          <h5>{advise.text}</h5>
           <span>ــ {advise.author}</span>
           <div className="options">
             <button className="btn" onClick={clearNote}>

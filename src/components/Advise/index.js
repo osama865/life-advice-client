@@ -70,7 +70,7 @@ export default function Advise({ advise, id, color }) {
   return (
     <div className="container">
       <blockquote className={`blockquote color${color}`}>
-        {advise.text}
+        <h4>{advise.text}</h4>
         <span> ــ {advise.author}</span>
         {isSaved === false ? (
           <div className="options">
@@ -79,8 +79,8 @@ export default function Advise({ advise, id, color }) {
               value={editedNote}
               placeholder={
                 advise.language === "ar"
-                  ? "احفظها واضف افكارك"
-                  : "Save it with note"
+                  ? "اضف افكارك"
+                  : "Add notes."
               }
               onChange={handleChange}
               ref={textfield}
