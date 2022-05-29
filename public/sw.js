@@ -151,15 +151,12 @@ self.addEventListener('push', event => {
       _id: payload._id
     },
     icon: "./assets/advise.jpg",
-    badge: "https://example.com/badge.png",
-    image: "./assets/photo-facebook-notification-laptop-screen-facebook-notification-screenshot-128761275.jpg",
     dir: payload.language === "en" ? "ltr" : "rtl",
     lang: payload.language,
     requireInteraction: true,
     tag: `${payload._id}`,
     vibrate: [200, 100, 200, 100],
     renotify: true,
-    timestamp: Date.now()
   };
 
   // if the notification is about unsubscribing
