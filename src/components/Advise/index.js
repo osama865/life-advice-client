@@ -89,10 +89,13 @@ export default function Advise({ advise, id, color }) {
               cols="20"
               rows="5"
             />
-            <Copy advise = {advise}/>
-            <button className="btn favorite saved" onClick={handleSave}>
-              <i className="far fa-heart"></i> add to favorite
-            </button>
+            <div className="center">
+              <Copy advise={advise} />
+              <button className="btn favorite saved" onClick={handleSave}>
+                <i className="far fa-heart"></i> Favorite
+              </button>
+            </div>
+
           </div>
         ) : (
           <div className="options">
