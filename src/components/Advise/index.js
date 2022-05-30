@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { copy } from '../../APIs';
 import { UseIndexedDB } from '../../db/indexedDB';
+import Copy from '../copy';
 
 // add advise to local db and 
 // make sure when random / multiple fetch to notify the user
@@ -87,12 +89,16 @@ export default function Advise({ advise, id, color }) {
               cols="20"
               rows="5"
             />
+            <Copy advise = {advise}/>
             <button className="btn favorite saved" onClick={handleSave}>
               <i className="far fa-heart"></i> add to favorite
             </button>
           </div>
         ) : (
           <div className="options">
+            <button onClick={() => { copy(advise) }} className="btn favorite">
+              <i className="fa fa-clipboard"></i> Copy
+            </button>
             <button className="btn favorite">
               <i className="fas fa-heart"></i> allready there!
             </button>

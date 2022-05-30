@@ -90,9 +90,9 @@ export async function fetchMultiple(skip = 0) {
 
 
 async function fetchData(route, req) {
-    let url = `${dev}/${route}`
+    let url = `${prod}/${route}`
     console.log(url);
-    let response = await fetch(url,req)
+    let response = await fetch(url, req)
     return response.clone().json()
 }
 
@@ -131,7 +131,7 @@ channel.addEventListener('message', async event => {
     } else if (advice.type === 'copy') {
         console.log(advice, 'from apis');
         try {
-            navigator.clipboard.writeText(advice.text + "    -" + advice.author);
+            navigator.clipboard.writeText(`${advice.text}     - ${advice.author}`);
             // console.log('Page URL copied to clipboard');
         } catch (err) {
             console.error('Failed to copy: ', err);
@@ -150,3 +150,11 @@ channel.addEventListener('message', async event => {
     }
 });
 
+export const copy = ({ text, author }) => {
+    try {
+        navigator.clipboard.writeText(text + "    -" + author);
+        // console.log('Page URL copied to clipboard');
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+    }
+}

@@ -18,7 +18,7 @@ export default function Navbar() {
           <i className="fas fa-list"></i> All
         </button>
       </Link>
-      <a target="_blank" href="https://o-portfolio.netlify.com">
+      <a target="_blank"  href="https://o-portfolio.netlify.com">
         <button className="nav favorite">
           <i className="fa fa-reply"></i> Contact Me
         </button>

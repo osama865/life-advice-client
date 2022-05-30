@@ -42,7 +42,7 @@ export default function FetchOneAdvise() {
   return (
     <>
       {
-        ! online && (<>
+        online && (<>
           <div className="container1">
             <Advise advise={advice} id={advice._id} color={coloring()} />
             <div className="center">
@@ -52,11 +52,10 @@ export default function FetchOneAdvise() {
             </div>
           </div>
           <Notifications />
-        </>
-        )}
-
+        </>)
+      }
       {
-        online && (<Offline />)
+        !online && (<Offline />)
       }
     </>
   )
