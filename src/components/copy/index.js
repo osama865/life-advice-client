@@ -18,7 +18,7 @@ export default function Copy({ advise }) {
     }, [])
     return (
         <button onClick={copyAdvice} className="btn favorite">
-            <i className="fa fa-clipboard"></i> {copied ? "Allready Copied" : "Copy"}
+            <i className="fa-solid fa-clipboard"></i> {copied ? "Allready Copied" : "Copy"}
         </button>
     )
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { copy } from '../../APIs';
 import { UseIndexedDB } from '../../db/indexedDB';
 import Copy from '../copy';
+import Share from '../share';
 
 // add advise to local db and 
 // make sure when random / multiple fetch to notify the user
@@ -95,20 +96,8 @@ export default function Advise({ advise, id, color }) {
               <button className="btn favorite saved" onClick={handleSave}>
                 <i className="far fa-heart"></i> Favorite
               </button>
-              <button className="btn">
-                <div className="" onClick={() => {
-                  navigator
-                    .share({
-                      title: "This is header/title",
-                      text: "This is the description",
-                      url: "https://put-here-url.com",
-                    })
-                    .then(() => console.log("Successful share"))
-                    .catch((error) => console.log("Error sharing", error));
-                }}>Share</div>
-              </button>
+              <Share advise={advise} />
             </div>
-
           </div>
         ) : (
           <div className="options">
