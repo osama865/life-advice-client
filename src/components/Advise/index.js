@@ -90,9 +90,22 @@ export default function Advise({ advise, id, color }) {
               rows="5"
             />
             <div className="center">
+
               <Copy advise={advise} />
               <button className="btn favorite saved" onClick={handleSave}>
                 <i className="far fa-heart"></i> Favorite
+              </button>
+              <button className="btn">
+                <div className="" onClick={() => {
+                  navigator
+                    .share({
+                      title: "This is header/title",
+                      text: "This is the description",
+                      url: "https://put-here-url.com",
+                    })
+                    .then(() => console.log("Successful share"))
+                    .catch((error) => console.log("Error sharing", error));
+                }}>Share</div>
               </button>
             </div>
 
