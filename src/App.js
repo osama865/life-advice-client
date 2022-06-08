@@ -7,12 +7,19 @@ import NotFound from "./components/404";
 import Navbar from "./components/navbar";
 import Proof from "./components/proof";
 import Notifications from "./components/notification";
+import Register from "./components/API/register";
+import Check from "./components/API/check";
 
 export default function App() {
 
   return (
     <>
-      <>
+      <Check />
+    </>
+  )
+}
+/**
+ * <>
         <Navbar />
         <Routes>
           <Route exact path="/saved" element={<FetchSavedAdvises />} />
@@ -24,10 +31,7 @@ export default function App() {
           <Route exact path="/proof" element={<Proof />}></Route>
         </Routes>
       </>
-    </>
-  )
-}
-
+ */
 /**
  {
       offline === true ? (<Routes><Offline /><Routes />) : (
