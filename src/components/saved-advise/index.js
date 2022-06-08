@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react'
 import { copy } from '../../APIs';
 import { UseIndexedDB } from '../../db/indexedDB';
 import Copy from '../copy';
+import FavoritsOptions from '../favoritsOptions';
+import Options from '../options';
 
 export default function SavedAdvises({ advise, _id, color }) {
   const [editedNote, setEditedNote] = useState("");
@@ -21,7 +23,7 @@ export default function SavedAdvises({ advise, _id, color }) {
   };
   */
 
-  const removeAd = () => {
+  const removeAdvice = () => {
     remove(_id);
     setIsRemoved(true);
   };
@@ -48,10 +50,7 @@ export default function SavedAdvises({ advise, _id, color }) {
             />
           </div>
           <div className="center">
-            <Copy advise={advise} />
-            <button onClick={removeAd} className="btn favorite">
-              <i className="fa fa-trash"></i> Delete
-            </button>
+            <FavoritsOptions advise={advise} removeAdvice={removeAdvice} />
           </div>
         </blockquote>
       </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { copy } from '../../APIs';
 import { UseIndexedDB } from '../../db/indexedDB';
 import Copy from '../copy';
+import Options from '../options';
 import Share from '../share';
 
 // add advise to local db and 
@@ -90,24 +91,10 @@ export default function Advise({ advise, id, color }) {
               cols="20"
               rows="5"
             />
-            <div className="center">
-
-              <Copy advise={advise} />
-              <button className="btn favorite saved" onClick={handleSave}>
-                <i className="far fa-heart"></i> Favorite
-              </button>
-              <Share advise={advise} />
-            </div>
+            <Options advise={advise} handleSave={handleSave} />
           </div>
         ) : (
-          <div className="options">
-            <button onClick={() => { copy(advise) }} className="btn favorite">
-              <i className="fa fa-clipboard"></i> Copy
-            </button>
-            <button className="btn favorite">
-              <i className="fas fa-heart"></i> allready there!
-            </button>
-          </div>
+          <Options advise={advise} isSaved={isSaved} />
         )}
       </blockquote>
     </div>
