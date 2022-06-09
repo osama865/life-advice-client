@@ -10,6 +10,7 @@ import Notifications from "./components/notification";
 import Register from "./components/API/register";
 import Check from "./components/API/check";
 import Fetch_One from "./components/API/fetch-one";
+import Fetch_Multiple from "./components/API/fetch-multiple";
 
 
 export default function App() {
@@ -17,7 +18,7 @@ export default function App() {
   return (
     <>
       <Register />
-      <Fetch_One />
+      <Fetch_Multiple />
     </>
   )
 }

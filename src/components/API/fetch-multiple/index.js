@@ -42,14 +42,14 @@ export default function Fetch_Multiple() {
                     <input
                         type="number"
                         value={skip}
-                        onChange={(e) => setSkip(e.target.value)}
+                        onChange={(e) => setSkip(e.target.valueAsNumber)}
                     />
                 </label>
                 <label>Enter limit amount of fetched qoute, "how many qoutes you want to fetch in one request, default is 10":
                     <input
                         type="number"
                         value={limit}
-                        onChange={(e) => setLimit(e.target.value)}
+                        onChange={(e) => setLimit(e.target.valueAsNumber)}
                     />
                 </label>
                 <input type="submit" onClick={handleFetch} />
