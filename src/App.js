@@ -9,12 +9,15 @@ import Proof from "./components/proof";
 import Notifications from "./components/notification";
 import Register from "./components/API/register";
 import Check from "./components/API/check";
+import Fetch_One from "./components/API/fetch-one";
+
 
 export default function App() {
 
   return (
     <>
-      <Check />
+      <Register />
+      <Fetch_One />
     </>
   )
 }
