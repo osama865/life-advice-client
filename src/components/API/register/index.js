@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import CopyAuthKey from '../copy';
+import SaveAuthKey from '../save';
 
 export default function Register() {
     const [name, setName] = useState("");
@@ -26,6 +28,7 @@ export default function Register() {
             console.error(err);
         })
     }
+
     return (
         <>
             <form style={{ textAlign: "center", color: "wheat" }}>
@@ -51,7 +54,9 @@ export default function Register() {
                         {response?.message}
                     </h2>
                     <h3>
-                        {response?.authKey}
+                        <input defaultValue={response?.authKey} readOnly />
+                        <SaveAuthKey authKey={response?.authKey} />
+                        <CopyAuthKey authKey={response?.authKey} />
                     </h3>
                 </div>
             }

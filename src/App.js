@@ -11,6 +11,7 @@ import Register from "./components/API/register";
 import Check from "./components/API/check";
 import Fetch_One from "./components/API/fetch-one";
 import Fetch_Multiple from "./components/API/fetch-multiple";
+import TestFetchComponent from "./components/API/testFetchComponent";
 
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <>
       <Register />
-      <Fetch_Multiple />
+      <Fetch_One />
     </>
   )
 }
