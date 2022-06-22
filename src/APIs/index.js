@@ -3,38 +3,60 @@ import { subscribeUser } from "../notification";
 
 const { insert } = UseIndexedDB()
 
-const prod = 'https://life-advise-server.herokuapp.com'
-const dev = 'http://localhost:3002'
+const proxy = 'https://cors-proxy4.p.rapidapi.com/?url=https%3A%2F%2Flife-advise-server.herokuapp.com%2F'
+const dev = 'http://localhost:3002/'
 
-
+// we'll use proxy to froward the requests/response to/from our server
 export async function random() {
-    let res = {};
-    let route = "random"
-    let req = {
+    const options = {
         method: 'GET',
-        mode: "cors",
         headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
+            'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com'
         }
-    }
-    res = fetchData(route, {})
-    return res;
+    };
+
+    let res = await fetchData("random", options)
+
+    return res
+
+    /**const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
+            'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com'
+        }
+     * await fetch('https://cors-proxy4.p.rapidapi.com/?url=https%3A%2F%2Flife-advise-server.herokuapp.com%2Frandom', options)
+        .then(response => {
+            console.log(response, 'response');
+            return response.clone().json()
+        })
+        .then(response => {
+            console.log(response, 'response');
+            return response
+        })
+        .catch(err => console.error(err));
+    };
+
+    let res = await fetchData("random", options)
+     */
 }
 
 
 
 async function unsubscribeNotifications(data = {}) {
     let route = `unsubscribe`
-    let req = {
+    let options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
+            'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com'
         },
         body: JSON.stringify(data)
     }
-    let res = fetchData(route, req)
+    let res = await fetchData(route, options)
     return res;
 }
 
@@ -70,30 +92,39 @@ const unsubscribe = () => {
 }
 
 localStorage.setItem('skip', 0)
-export async function fetchMultiple(skip = 0) {
-    let res = {};
+export async function fetchMultiple(skip) {
     let limit = 10
     // let skip = localStorage.getItem('skip')
-    let route = `multiple?skip=${skip}&limit=${limit}`
-
-    let req = {
-        method: 'GET',
-        mode: "cors",
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    let opt = {
+        skip,
+        limit
     }
-    res = fetchData(route, {})
-    return res;
+    let route = `multiple`
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(opt),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
+            'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com',
+        }
+    };
+
+    let res = await fetchData(route, options)
+    console.log('response from multiple api', res.body);
+    return res
 }
 
 
-async function fetchData(route, req) {
-    let url = `${prod}/${route}`
-    console.log(url);
-    let response = await fetch(url, req)
-    return response.clone().json()
+async function fetchData(route, options) {
+    let res = await fetch(`${dev}${route}`, options)
+        .then(response => {
+            console.log("res", response)
+            return response.clone().json()
+        })
+        .then(response => response)
+        .catch(err => { console.error("error occured in the fetch step", err) });
+    return res;
 }
 
 export function coloring() {

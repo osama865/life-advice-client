@@ -15,17 +15,19 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray
 }
 
-const prod = 'https://life-advise-server.herokuapp.com'
+const prod = 'https://cors-proxy4.p.rapidapi.com/?url=https%3A%2F%2Flife-advise-server.herokuapp.com%2F'
 const dev = 'http://localhost:3002'
 
 function sendSubscription(subscription) {
   console.log(prod, "envirniment");
   console.log('hshshhs', subscription);
-  return fetch(`${prod}/subscribe`, {
+  return fetch(`${dev}/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
+      'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com'
     }
   })
 }

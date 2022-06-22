@@ -18,24 +18,22 @@ export default function App() {
 
   return (
     <>
-      <Register />
-      <Fetch_One />
+      <Navbar />
+      <Routes>
+        <Route exact path="/saved" element={<FetchSavedAdvises />} />
+        <Route path="/random" element={<FetchOneAdvise />} />
+        <Route exact path="/" element={<FetchOneAdvise />} />
+        <Route exact path="/notify" element={<Notifications />} />
+        <Route exact path="/all" element={<FetchAllAdvises />} />
+        <Route path="*" element={<NotFound />} />
+        <Route exact path="/proof" element={<Proof />}></Route>
+      </Routes>
     </>
   )
 }
 /**
  * <>
-        <Navbar />
-        <Routes>
-          <Route exact path="/saved" element={<FetchSavedAdvises />} />
-          <Route path="/random" element={<FetchOneAdvise />} />
-          <Route exact path="/" element={<FetchOneAdvise />} />
-          <Route exact path="/notify" element={<Notifications />} />
-          <Route exact path="/all" element={<FetchAllAdvises />} />
-          <Route path="*" element={<NotFound />} />
-          <Route exact path="/proof" element={<Proof />}></Route>
-        </Routes>
-      </>
+
  */
 /**
  {
