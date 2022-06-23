@@ -44,7 +44,7 @@ export default function FetchOneAdvise() {
       {
         online && (<>
           <div className="container1">
-            <Advise advise={advice} id={advice._id} color={coloring()} />
+            <Advise advise={advice} id={advice._id} color={coloring()} setAdvice={setAdvice} />
             <div className="center">
               <button className="btn favorite" onClick={fetchMore}>
                 <i className="fas fa-comment-alt"></i> Get More Advices

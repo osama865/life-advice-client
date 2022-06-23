@@ -1,8 +1,10 @@
 import React from 'react'
 import Copy from '../copy'
 import Share from '../share'
+import Translate from '../translate'
 
-export default function Options({ advise = {}, handleSave = () => { }, isSaved = false }) {
+// TODO make generic option button function
+export default function Options({ advise = {}, handleSave = () => { },changeText = () => { }, isSaved = false }) {
     return (
         <>
             <div className="center">
@@ -18,6 +20,7 @@ export default function Options({ advise = {}, handleSave = () => { }, isSaved =
                 )
                 }
                 <Copy advise={advise} />
+                <Translate changeText={changeText} />
             </div>
         </>
     )
