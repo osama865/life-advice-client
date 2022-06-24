@@ -4,7 +4,7 @@ import Share from '../share'
 import Translate from '../translate'
 
 // TODO make generic option button function
-export default function Options({ advise = {}, handleSave = () => { },changeText = () => { }, isSaved = false }) {
+export default function Options({ advise = {}, handleSave = () => { }, changeText = () => { }, isSaved = false, setTo = () => { } }) {
     return (
         <>
             <div className="center">
@@ -20,7 +20,7 @@ export default function Options({ advise = {}, handleSave = () => { },changeText
                 )
                 }
                 <Copy advise={advise} />
-                <Translate changeText={changeText} />
+                <Translate changeText={changeText} setTo={setTo} />
             </div>
         </>
     )

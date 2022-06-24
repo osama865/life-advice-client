@@ -115,7 +115,6 @@ html::-webkit-scrollbar {
   }
 }
 
-
 .blockquote::before {
   content: "\201C";
   font-size: 4em;
@@ -198,11 +197,12 @@ textarea {
 
 .center {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: row;
   gap: 10px;
-  align-content: space-around;
   justify-content: center;
+  align-content: space-around;
+  align-items: center;
 }
 
 .random {
@@ -226,19 +226,19 @@ textarea {
 
 @media only screen and (max-width: 480px) {
   .container1 {
-    padding-top:2em ;
+    padding-top: 2em;
   }
 }
 
 @media only screen and (max-width: 300px) {
   .container1 {
-    padding-top:3.5em ;
+    padding-top: 3.5em;
   }
 }
 
 @media only screen and (max-width: 260px) {
   .container1 {
-    padding-top:5.5em ;
+    padding-top: 5.5em;
   }
 }
 

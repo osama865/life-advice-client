@@ -1,16 +1,20 @@
 import React, { useRef, useState } from 'react'
-import { copy } from '../../APIs';
 import { UseIndexedDB } from '../../db/indexedDB';
-import Copy from '../copy';
+import useTranslate from '../Advise/useTranslate';
 import FavoritsOptions from '../favoritsOptions';
-import Options from '../options';
 
 export default function SavedAdvises({ advise, _id, color }) {
+  // states
   const [editedNote, setEditedNote] = useState("");
   const [isRemoved, setIsRemoved] = useState(false);
+  const [to, setTo] = useState("");
+  // refs
   const note = useRef();
+  // hooks
   const { remove, update } = UseIndexedDB();
+  const { changeText, translated, setTranslated } = useTranslate(advise, to)
 
+  // handlers
   const updateNote = () => {
     advise.note = editedNote
     update(advise._id, advise);
@@ -32,11 +36,9 @@ export default function SavedAdvises({ advise, _id, color }) {
     <>
       <div hidden={isRemoved}>
         <blockquote className={`blockquote color${color}`}>
-          <h5>{advise.text}</h5>
-          <span>ــ {advise.author}</span>
+          <h4>{translated?.text || advise.text}</h4>
+          <span>ــ {translated?.author || advise.author}</span>
           <div className="options">
-
-
             <textarea
               autoComplete="false"
               dir={advise.language === "en" ? "ltr" : "rtl"}
@@ -50,7 +52,7 @@ export default function SavedAdvises({ advise, _id, color }) {
             />
           </div>
           <div className="center">
-            <FavoritsOptions advise={advise} removeAdvice={removeAdvice} />
+            <FavoritsOptions advise={advise} changeText={ changeText} setTo={setTo} removeAdvice={removeAdvice} />
           </div>
         </blockquote>
       </div>

@@ -1,3 +1,7 @@
+:root {
+  --brown-bg: #c09b7817;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +39,48 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.box {
+  position: relative;
+}
+
+.box select {
+  color: white;
+  padding: 1em;
+  max-width: 10.5em;
+  /* height: 3.2em; */
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  box-shadow: 0 5px 25px rgb(0 0 0 / 20%);
+  appearance: none;
+  outline: none;
+  background: url(https://icons-for-free.com/iconfiles/png/512/expand-131964752744241944.png)
+    96% / 15% no-repeat #c09b7817;
+}
+
+.box::before {
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  font-size: 28px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+  padding: 30px;
+  background-color: #112942;
 }

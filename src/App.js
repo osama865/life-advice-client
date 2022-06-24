@@ -12,10 +12,9 @@ import Check from "./components/API/check";
 import Fetch_One from "./components/API/fetch-one";
 import Fetch_Multiple from "./components/API/fetch-multiple";
 import TestFetchComponent from "./components/API/testFetchComponent";
-
+import "./App.css"
 
 export default function App() {
-
   return (
     <>
       <Navbar />
@@ -27,13 +26,22 @@ export default function App() {
         <Route exact path="/all" element={<FetchAllAdvises />} />
         <Route path="*" element={<NotFound />} />
         <Route exact path="/proof" element={<Proof />}></Route>
-      </Routes>
-    </>
+      </Routes></>
+
   )
 }
 /**
- * <>
-
+ *
+<Navbar />
+      <Routes>
+        <Route exact path="/saved" element={<FetchSavedAdvises />} />
+        <Route path="/random" element={<FetchOneAdvise />} />
+        <Route exact path="/" element={<FetchOneAdvise />} />
+        <Route exact path="/notify" element={<Notifications />} />
+        <Route exact path="/all" element={<FetchAllAdvises />} />
+        <Route path="*" element={<NotFound />} />
+        <Route exact path="/proof" element={<Proof />}></Route>
+      </Routes>
  */
 /**
  {

@@ -1,62 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { copy } from '../../APIs';
 import { UseIndexedDB } from '../../db/indexedDB';
-import Copy from '../copy';
 import Options from '../options';
-import Share from '../share';
 import useTranslate from './useTranslate';
 
-// add advise to local db and 
-// make sure when random / multiple fetch to notify the user
-// if the fetched advise is saved or not
-/*
-
-const findIds = async () => {
-    try {
-        let res = await db.advises.toArray()
-        res.map((advise)=>{
-            console.log(advise._id);
-        })
-        console.log(res, 'hoooo');
-        return res
-    } catch {
-        
-    }
-}
-*/
-
-
-export function Ad({ advise }) {
-  const [test, settest] = useState()
-  useEffect(() => {
-    settest(advise)
-  }, [])
-
-  console.log(test, 'teeeeeeeeeest');
-  const { text, author } = advise
-  return (
-    <>
-      <h4>{text}</h4>
-      <span>ــ {author}</span>
-    </>
-  )
-}
-
-export default function Advise({ advise, id, color }) {
+export default function Advise({ advise, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
+  const [to, setTo] = useState("");
 
   const textfield = useRef();
   const { insert, find } = UseIndexedDB()
-  // add advise to indexedDB
-  //console.log(id, "sssssssss");
 
   const handleChange = (e) => {
     e.preventDefault();
     setEditedNote(e.target.value);
   };
 
-  const { changeText, translated, setTranslated } = useTranslate(advise)
+  const { changeText, translated, setTranslated } = useTranslate(advise,to)
 
   const handleSave = () => {
     // e.preventDefault()
@@ -86,17 +46,13 @@ export default function Advise({ advise, id, color }) {
 
   useEffect(() => {
     findMatched();
-
   }, []);
 
   useEffect(() => {
-    setTranslated(undefined)
-  }, [advise])
-
-  useEffect(() => {
     setIsSaved(false);
+    setTranslated(undefined)
     setEditedNote("")
-  }, [advise._id]);
+  }, [advise]);
 
   return (
     <div className="container">
@@ -118,10 +74,10 @@ export default function Advise({ advise, id, color }) {
               cols="20"
               rows="5"
             />
-            <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} />
+            <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} setTo = {setTo}/>
           </div>
         ) : (
-          <Options advise={translated || advise} isSaved={isSaved} />
+          <Options advise={advise} isSaved={isSaved} setTo = {setTo}/>
         )}
       </blockquote>
     </div>

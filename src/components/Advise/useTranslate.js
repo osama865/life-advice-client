@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-export default function useTranslate(advise) {
+export default function useTranslate(advise,to) {
     const [translated, setTranslated] = useState(advise)
 
-    const url = new URL('https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=ar&api-version=3.0&profanityAction=NoAction&textType=plain')
+    const url = new URL(`https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=${to}&api-version=3.0&profanityAction=NoAction&textType=plain`)
     const options = {
         method: 'POST',
         headers: {
@@ -13,9 +13,7 @@ export default function useTranslate(advise) {
         },
         body: JSON.stringify([{ "Text": advise.text }, { "Text": advise.author }])
     };
-
-    // add advise to indexedDB
-    //console.log(id, "sssssssss");
+    
     const changeText = () => {
         fetch(url, options)
             .then(response => response.json())
