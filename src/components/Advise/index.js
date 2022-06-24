@@ -16,12 +16,17 @@ export default function Advise({ advise, color }) {
     setEditedNote(e.target.value);
   };
 
-  const { changeText, translated, setTranslated } = useTranslate(advise,to)
+  const { changeText, translated, setTranslated } = useTranslate(advise, to)
+
+  const handleEditNote = () => {
+    let ad = translated || advise
+    ad.note = editedNote
+  }
 
   const handleSave = () => {
     // e.preventDefault()
+    // TODO use onBlur to set the user note instead of setting it when he make save
     let ad = translated || advise
-    ad.note = editedNote
     insert(ad).then((result) => {
       console.log(result);
     }).catch((err) => {
@@ -70,14 +75,15 @@ export default function Advise({ advise, color }) {
                   : "Add notes."
               }
               onChange={handleChange}
+              onBlur={handleEditNote}
               ref={textfield}
               cols="20"
               rows="5"
             />
-            <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} setTo = {setTo}/>
+            <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} setTo={setTo} />
           </div>
         ) : (
-          <Options advise={advise} isSaved={isSaved} setTo = {setTo}/>
+          <Options advise={advise} isSaved={isSaved} setTo={setTo} />
         )}
       </blockquote>
     </div>

@@ -99,7 +99,29 @@ export async function fetchMultiple(skip) {
         skip,
         limit
     }
-    let route = `multiple`
+
+    const options = {
+        method: 'GET',
+        headers: {
+            origin: 'example.com',
+            'x-requested-with': 'example.com',
+            'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
+            'X-RapidAPI-Host': 'http-cors-proxy.p.rapidapi.com'
+        }
+    };
+
+    let res = await fetch(`https://http-cors-proxy.p.rapidapi.com/https://life-advise-server.herokuapp.com/multiple?skip=${skip}&limit=${limit}`, options)
+        .then(response => {
+            return response.clone().json()
+        })
+        .then(response => response)
+        .catch(err => console.error(err));
+
+    return res
+}
+/**
+ * 
+ * let route = `multiple`
     const options = {
         method: 'POST',
         body: JSON.stringify(opt),
@@ -109,15 +131,16 @@ export async function fetchMultiple(skip) {
             'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com',
         }
     };
-
-    let res = await fetchData(route, options)
     console.log('response from multiple api', res.body);
     return res
-}
+ * @param {*} route 
+ * @param {*} options 
+ * @returns 
+ */
 
 
 async function fetchData(route, options) {
-    let res = await fetch(`${dev}${route}`, options)
+    let res = await fetch(`${proxy}${route}`, options)
         .then(response => {
             console.log("res", response)
             return response.clone().json()
