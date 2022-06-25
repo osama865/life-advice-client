@@ -15,21 +15,28 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray
 }
 
-const prod = 'https://cors-proxy4.p.rapidapi.com/?url=https%3A%2F%2Flife-advise-server.herokuapp.com%2F'
-const dev = 'http://localhost:3002'
+const prod = 'https://cors-proxy4.p.rapidapi.com/?url=https%3A%2F%2Flife-advise-server.herokuapp.com%2Fsubscribe'
+const dev = 'http://localhost:3002/'
 
-function sendSubscription(subscription) {
-  console.log(prod, "envirniment");
+async function sendSubscription(subscription) {
+  console.log(prod);
   console.log('hshshhs', subscription);
-  return fetch(`${dev}/subscribe`, {
+  const options = {
     method: 'POST',
-    body: JSON.stringify(subscription),
     headers: {
-      'Content-Type': 'application/json',
+      'content-type': 'application/json',
+      origin: 'example.com',
+      'x-requested-with': 'example.com',
       'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
-      'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com'
-    }
-  })
+      'X-RapidAPI-Host': 'http-cors-proxy.p.rapidapi.com'
+    },
+    body: JSON.stringify(subscription)
+  };
+
+  return await fetch('https://http-cors-proxy.p.rapidapi.com/https://life-advise-server.herokuapp.com/subscribe', options)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
 }
 
 /**

@@ -225,7 +225,7 @@ self.addEventListener('notificationclick', function (e) {
     channel.close()
     notification.close();
   } else if (action === "show") {
-    let url = `${prod}/random/?text=${payload.text}&author=${payload.author}&language=${payload.language}&_id=${payload._id}`
+    let url = `${prod}/random/?text=${payload?.text}&author=${payload?.author}&language=${payload?.language}&_id=${payload?._id}`
     console.log(url, "fuck");
     // open url
     clients.openWindow(url)

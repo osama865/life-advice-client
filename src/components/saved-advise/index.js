@@ -8,11 +8,12 @@ export default function SavedAdvises({ advise, _id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isRemoved, setIsRemoved] = useState(false);
   const [to, setTo] = useState("");
+  const [dir, setDir] = useState("");
   // refs
   const note = useRef();
   // hooks
   const { remove, update } = UseIndexedDB();
-  const { changeText, translated, setTranslated } = useTranslate(advise, to)
+  const { changeText, translated } = useTranslate(advise, to,dir)
 
   // handlers
   const updateNote = () => {
@@ -41,7 +42,8 @@ export default function SavedAdvises({ advise, _id, color }) {
           <div className="options">
             <textarea
               autoComplete="false"
-              dir={advise.language === "en" ? "ltr" : "rtl"}
+              dir={translated?.dir || dir}
+              placeholder="Add notes."
               spellCheck="false"
               cols="20"
               rows="5"
@@ -52,7 +54,7 @@ export default function SavedAdvises({ advise, _id, color }) {
             />
           </div>
           <div className="center">
-            <FavoritsOptions advise={advise} changeText={ changeText} setTo={setTo} removeAdvice={removeAdvice} />
+            <FavoritsOptions advise={advise} changeText={ changeText} setTo={setTo} removeAdvice={removeAdvice} setDir={setDir} />
           </div>
         </blockquote>
       </div>

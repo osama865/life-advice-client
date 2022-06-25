@@ -1,7 +1,7 @@
 import React from 'react'
 import useTranslate from '../Advise/useTranslate'
 
-export default function Translate({ changeText, setTo }) {
+export default function Translate({ changeText, setTo, setDir }) {
 
     let languages = {
         "af": { "name": "Afrikaans", "nativeName": "Afrikaans", "dir": "ltr", },
@@ -205,6 +205,9 @@ export default function Translate({ changeText, setTo }) {
                 <select onChange={(e) => {
                     console.log(e.target.value);
                     setTo(e.target.value)
+                    // set language direct writing
+                    let dir = languages[e.target.value].dir
+                    setDir(dir)
                 }} name="format" id="format">
                     <option>Select Language</option>
                     {

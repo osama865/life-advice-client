@@ -47,16 +47,22 @@ export async function random() {
 
 async function unsubscribeNotifications(data = {}) {
     let route = `unsubscribe`
-    let options = {
+    const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'content-type': 'application/json',
+            origin: 'example.com',
+            'x-requested-with': 'example.com',
             'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
-            'X-RapidAPI-Host': 'cors-proxy4.p.rapidapi.com'
+            'X-RapidAPI-Host': 'http-cors-proxy.p.rapidapi.com'
         },
         body: JSON.stringify(data)
-    }
-    let res = await fetchData(route, options)
+    };
+
+    let res = await fetch('https://http-cors-proxy.p.rapidapi.com/https://life-advise-server.herokuapp.com/unsubscribe', options)
+        .then(response => response.clone().json())
+        .then(response => response)
+        .catch(err => console.error(err));
     return res;
 }
 
@@ -101,19 +107,19 @@ export async function fetchMultiple(skip) {
     }
 
     const options = {
-        method: 'GET',
+        method: 'POST',
         headers: {
+            'content-type': 'application/json',
             origin: 'example.com',
             'x-requested-with': 'example.com',
             'X-RapidAPI-Key': '956152c248mshb998fd97efb63f7p1f7930jsn67bc3343263f',
             'X-RapidAPI-Host': 'http-cors-proxy.p.rapidapi.com'
-        }
+        },
+        body: JSON.stringify(opt)
     };
 
-    let res = await fetch(`https://http-cors-proxy.p.rapidapi.com/https://life-advise-server.herokuapp.com/multiple?skip=${skip}&limit=${limit}`, options)
-        .then(response => {
-            return response.clone().json()
-        })
+    let res = await fetch('https://http-cors-proxy.p.rapidapi.com/https://life-advise-server.herokuapp.com/multiple', options)
+        .then(response => response.clone().json())
         .then(response => response)
         .catch(err => console.error(err));
 
@@ -140,6 +146,7 @@ export async function fetchMultiple(skip) {
 
 
 async function fetchData(route, options) {
+    console.log("fetch request", `${proxy}${route}`);
     let res = await fetch(`${proxy}${route}`, options)
         .then(response => {
             console.log("res", response)

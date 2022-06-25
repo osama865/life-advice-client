@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-export default function useTranslate(advise, to = "") {
+export default function useTranslate(advise, to = "", dir = "") {
     const [translated, setTranslated] = useState(advise)
 
     const url = new URL(`https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=${to}&api-version=3.0&profanityAction=NoAction&textType=plain`)
@@ -26,6 +26,7 @@ export default function useTranslate(advise, to = "") {
                     index: advise.index,
                     note: advise.index || "",
                     language: advise.language,
+                    dir,
                     date: advise.date,
                 }
                 console.log(data, "im the new translated advise");

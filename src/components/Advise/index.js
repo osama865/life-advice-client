@@ -7,6 +7,7 @@ export default function Advise({ advise, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const [to, setTo] = useState("");
+  const [dir, setDir] = useState("");
 
   const textfield = useRef();
   const { insert, find } = UseIndexedDB()
@@ -16,7 +17,7 @@ export default function Advise({ advise, color }) {
     setEditedNote(e.target.value);
   };
 
-  const { changeText, translated, setTranslated } = useTranslate(advise, to)
+  const { changeText, translated, setTranslated } = useTranslate(advise, to, dir)
 
   const handleEditNote = () => {
     let ad = translated || advise
@@ -62,28 +63,24 @@ export default function Advise({ advise, color }) {
   return (
     <div className="container">
       <blockquote className={`blockquote color${color}`}>
-        <h4>{translated?.text || advise.text}</h4>
-        <span>ــ {translated?.author || advise.author}</span>
+        <h4 dir={translated?.dir}>{translated?.text || advise.text}</h4>
+        <span dir={translated?.dir}>ــ {translated?.author || advise.author}</span>
         {isSaved === false ? (
           <div className="options">
             <textarea
-              dir={advise.language === "ar" ? "rtl" : "ltr"}
+              dir={translated?.dir || dir}
               value={editedNote}
-              placeholder={
-                advise.language === "ar"
-                  ? "اضف افكارك"
-                  : "Add notes."
-              }
+              placeholder="Add notes."
               onChange={handleChange}
               onBlur={handleEditNote}
               ref={textfield}
               cols="20"
               rows="5"
             />
-            <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} setTo={setTo} />
+            <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} setTo={setTo} setDir={setDir} />
           </div>
         ) : (
-          <Options advise={advise} isSaved={isSaved} setTo={setTo} />
+          <Options advise={advise} isSaved={isSaved} setTo={setTo} setDir={setDir} />
         )}
       </blockquote>
     </div>

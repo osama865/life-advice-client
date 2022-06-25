@@ -4,13 +4,13 @@ import RemoveAdvice from '../removeAdvice'
 import Share from '../share'
 import Translate from '../translate'
 
-export default function FavoritsOptions({ advise = {}, removeAdvice = () => { }, changeText = () => { }, setTo = () => { } }) {
+export default function FavoritsOptions({ advise = {}, removeAdvice = () => { }, changeText = () => { }, setTo = () => { } , setDir = () => { }}) {
     return (
         <div className="center">
             <Copy advise={advise} />
             <Share advise={advise} />
             <RemoveAdvice removeAdvice={removeAdvice} />
-            <Translate changeText={changeText} setTo={setTo} />
+            <Translate changeText={changeText} setTo={setTo} setDir={setDir} />
         </div>
     )
 }
