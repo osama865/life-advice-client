@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UseIndexedDB } from "../../db/indexedDB";
+import { UseIndexedDB } from "../../DB";
 import SavedAdvises from "../saved-advise";
 
 function coloring() {

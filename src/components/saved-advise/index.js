@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { UseIndexedDB } from '../../db/indexedDB';
+import { UseIndexedDB } from '../../DB';
 import useTranslate from '../Advise/useTranslate';
-import FavoritsOptions from '../favoritsOptions';
+import { FavoritsOptions } from '../options';
 
 export default function SavedAdvises({ advise, _id, color }) {
   // states
@@ -13,7 +13,7 @@ export default function SavedAdvises({ advise, _id, color }) {
   const note = useRef();
   // hooks
   const { remove, update } = UseIndexedDB();
-  const { changeText, translated } = useTranslate(advise, to,dir)
+  const { changeText, translated } = useTranslate(advise, to, dir)
 
   // handlers
   const updateNote = () => {
@@ -54,7 +54,7 @@ export default function SavedAdvises({ advise, _id, color }) {
             />
           </div>
           <div className="center">
-            <FavoritsOptions advise={advise} changeText={ changeText} setTo={setTo} removeAdvice={removeAdvice} setDir={setDir} />
+            <FavoritsOptions advise={advise} changeText={changeText} setTo={setTo} removeAdvice={removeAdvice} setDir={setDir} />
           </div>
         </blockquote>
       </div>

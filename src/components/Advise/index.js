@@ -1,29 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { UseIndexedDB } from '../../db/indexedDB';
-import Options from '../options';
+import { UseIndexedDB } from '../../DB';
+import {Options} from '../options';
+import { Author, Text, Textarea } from '../shared';
 import useTranslate from './useTranslate';
 
 export default function Advise({ advise, color }) {
-  const [editedNote, setEditedNote] = useState("");
+  // states
   const [isSaved, setIsSaved] = useState(false);
   const [to, setTo] = useState("");
-  const [dir, setDir] = useState("");
+  const [dir, setDir] = useState("ltr");
 
-  const textfield = useRef();
-  const { insert, find } = UseIndexedDB()
+  console.log(advise);
+  // hooks
+  const { insert, find } = UseIndexedDB();
+  const { changeText, translated, setTranslated } = useTranslate(advise, to, dir);
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setEditedNote(e.target.value);
-  };
-
-  const { changeText, translated, setTranslated } = useTranslate(advise, to, dir)
-
-  const handleEditNote = () => {
-    let ad = translated || advise
-    ad.note = editedNote
-  }
-
+  // handlers
   const handleSave = () => {
     // e.preventDefault()
     // TODO use onBlur to set the user note instead of setting it when he make save
@@ -33,6 +25,7 @@ export default function Advise({ advise, color }) {
     }).catch((err) => {
       console.error(err);
     });
+
     setIsSaved(true)
   }
 
@@ -50,6 +43,7 @@ export default function Advise({ advise, color }) {
     })
   }
 
+  // effects
   useEffect(() => {
     findMatched();
   }, []);
@@ -57,26 +51,18 @@ export default function Advise({ advise, color }) {
   useEffect(() => {
     setIsSaved(false);
     setTranslated(undefined)
-    setEditedNote("")
+    setDir("ltr")
   }, [advise]);
 
+  // {translated?.dir}>{translated?.text || advise.text}
   return (
     <div className="container">
       <blockquote className={`blockquote color${color}`}>
-        <h4 dir={translated?.dir}>{translated?.text || advise.text}</h4>
-        <span dir={translated?.dir}>ــ {translated?.author || advise.author}</span>
+        <Text dir={translated?.dir || dir} text={translated?.text || advise.text} />
+        <Author dir={translated?.dir || dir} author={translated?.author || advise.author} />
         {isSaved === false ? (
           <div className="options">
-            <textarea
-              dir={translated?.dir || dir}
-              value={editedNote}
-              placeholder="Add notes."
-              onChange={handleChange}
-              onBlur={handleEditNote}
-              ref={textfield}
-              cols="20"
-              rows="5"
-            />
+            <Textarea advice={translated || advise} />
             <Options advise={translated || advise} changeText={changeText} handleSave={handleSave} setTo={setTo} setDir={setDir} />
           </div>
         ) : (

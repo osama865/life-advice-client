@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchMultiple } from '../../APIs'
+import { fetchMultiple } from '../../services'
 import Advise from '../Advise'
 import Offline from '../offline';
 import infinteScroll from './customHook'
@@ -27,7 +27,9 @@ export default function FetchAllAdvises() {
 
 
   useEffect(() => {
+    console.log('hey multiple advices');
     fetchMultiple(0).then(res => {
+      console.error('hey multiple advices' , res);
       setAdvises((prev) => {
         return [...new Set([...prev, ...res])];
       });

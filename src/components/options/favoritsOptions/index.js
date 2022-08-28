@@ -1,10 +1,10 @@
 import React from 'react'
 import Copy from '../copy'
-import RemoveAdvice from '../removeAdvice'
+import RemoveAdvice from './removeAdvice'
 import Share from '../share'
 import Translate from '../translate'
 
-export default function FavoritsOptions({ advise = {}, removeAdvice = () => { }, changeText = () => { }, setTo = () => { } , setDir = () => { }}) {
+export default function FavoritsOptions({ advise = {}, removeAdvice = () => { }, changeText = () => { }, setTo = () => { }, setDir = () => { } }) {
     return (
         <div className="center">
             <Copy advise={advise} />

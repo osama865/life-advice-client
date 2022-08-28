@@ -1,5 +1,5 @@
 import React from 'react'
-import useTranslate from '../Advise/useTranslate'
+import useTranslate from '../../Advise/useTranslate'
 
 export default function Translate({ changeText, setTo, setDir }) {
 

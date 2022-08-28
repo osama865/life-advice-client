@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { copy } from '../../APIs'
+import { copy } from '../../../services'
 
 export default function Copy({ advise }) {
     const [copied, setCopied] = useState(false)

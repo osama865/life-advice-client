@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { random, coloring, getParameters } from '../../APIs'
+import { random, coloring, getParameters } from '../../services'
 import Advise from '../Advise'
 import Notifications from '../notification'
 import Offline from '../offline'
